@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const INITIAL_COUNT = 10;
 
@@ -30,17 +30,14 @@ export const Gallery = () => {
                 exit={{ opacity: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: showAll ? Math.min((index - INITIAL_COUNT) * 0.04, 0.4) : Math.min(index * 0.05, 0.5) }}
-                className="break-inside-avoid relative group overflow-hidden rounded-xl"
+                className="break-inside-avoid overflow-hidden rounded-xl"
               >
                 <img
                   src={img.url}
                   alt="Trabalho Barbearia"
                   loading="lazy"
-                  className="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-auto object-cover"
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="text-gold font-bold uppercase tracking-widest border border-gold px-4 py-2">Ver Resultado</span>
-                </div>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -53,6 +50,17 @@ export const Gallery = () => {
               className="flex items-center gap-2 border border-gold text-gold font-display font-bold uppercase tracking-widest px-8 py-3 rounded hover:bg-gold hover:text-deep transition-all duration-300"
             >
               Ver mais <ChevronDown size={18} />
+            </button>
+          </div>
+        )}
+
+        {showAll && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => setShowAll(false)}
+              className="flex items-center gap-2 border border-gold text-gold font-display font-bold uppercase tracking-widest px-8 py-3 rounded hover:bg-gold hover:text-deep transition-all duration-300"
+            >
+              Ver menos <ChevronUp size={18} />
             </button>
           </div>
         )}

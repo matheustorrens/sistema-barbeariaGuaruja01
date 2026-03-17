@@ -54,7 +54,7 @@ export const DashboardApp: React.FC = () => {
         onNavigate={setPage}
         onLogout={() => signOut(auth).then(() => navigate('/'))}
       />
-      <main className="flex-1 p-5 md:p-8 overflow-auto min-h-screen">
+      <main className="flex-1 p-5 md:p-8 overflow-auto min-h-screen pt-[76px] md:pt-8 pb-24 md:pb-8">
         <div className="max-w-5xl mx-auto">
           {pages[page]}
         </div>

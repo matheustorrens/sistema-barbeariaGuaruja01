@@ -80,7 +80,7 @@ export const TeamPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-start justify-between mb-6 gap-y-3">
         <div>
           <h1 className="text-2xl font-bold text-black">Equipe</h1>
           <p className="text-gray-400 text-sm mt-0.5">{team.length} profissionais</p>

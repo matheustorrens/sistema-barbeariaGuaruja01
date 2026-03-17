@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from './components/Alert';
@@ -7,6 +7,7 @@ import { Alert } from './components/Alert';
 export const LoginPage: React.FC = () => {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export const LoginPage: React.FC = () => {
     setError('');
     setLoading(true);
     try {
+      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch {
@@ -73,6 +75,24 @@ export const LoginPage: React.FC = () => {
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-900 bg-white focus:outline-none focus:border-black transition-colors"
               />
             </div>
+
+            {/* Remember me */}
+            <label className="flex items-center gap-3 cursor-pointer select-none group">
+              <div
+                onClick={() => setRemember(r => !r)}
+                className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors shrink-0 ${
+                  remember ? 'bg-black border-black' : 'border-gray-300 group-hover:border-gray-500'
+                }`}
+              >
+                {remember && (
+                  <svg className="w-3 h-3 text-white" viewBox="0 0 12 10" fill="none">
+                    <path d="M1 5l3.5 3.5L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </div>
+              <span className="text-sm text-gray-600">Continuar logado</span>
+            </label>
+
             <button
               type="submit"
               disabled={loading}

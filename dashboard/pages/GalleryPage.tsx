@@ -80,12 +80,12 @@ export const GalleryPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-start justify-between mb-6 gap-y-3">
         <div>
           <h1 className="text-2xl font-bold text-black">Galeria</h1>
           <p className="text-gray-400 text-sm mt-0.5">{gallery.length} foto{gallery.length !== 1 ? 's' : ''}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {gallery.length > 0 && (
             <button
               onClick={() => { setSelectMode(s => !s); setSelected(new Set()); }}

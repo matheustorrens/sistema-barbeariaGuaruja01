@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD-jmzZFnkK9l763pz3pDFTgPWqGQxZnTE",
@@ -15,3 +15,7 @@ const app = initializeApp(firebaseConfig);
 
 export const db   = getFirestore(app);
 export const auth = getAuth(app);
+
+// Default: session only — auth is cleared when the browser is closed.
+// The login page switches to browserLocalPersistence when "Continuar logado" is checked.
+setPersistence(auth, browserSessionPersistence).catch(() => {});
